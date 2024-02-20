@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -17,11 +18,13 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 */
 
 // Accesing the
-Route::get('/', [DashboardController::class , 'index'] );
-
-Route::get('/profile', [ProfileController::class , 'index']);
+Route::get('/', [DashboardController::class , 'index'] )->name('idea.home');
 
 Route::get('/terms', function () {
     return view('terms');
 });
+
+Route::post('/ideas', [IdeaController::class, 'store'])->name('idea.add');
+
+Route::delete('/ideas/{id}', [IdeaController::class, 'destroy'])->name('idea.destroy');
 
