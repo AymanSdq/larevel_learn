@@ -13,24 +13,44 @@
                 <form action="{{ route('idea.destroy', $idea->id) }}" method="post">
                     @csrf
                     @method('delete')
-                    <a href="{{ route('idea.show',$idea->id) }}">Show</a>
+                    <a class="mx-2" href="{{ route('idea.edit', $idea->id) }}">Edit</a>
+                    <a href="{{ route('idea.show', $idea->id) }}">Show</a>
                     <button type="submit" class="btn btn-danger btn-sm"> X </button>
                 </form>
             </div>
         </div>
     </div>
     <div class="card-body">
-        <p class="fs-6 fw-light text-muted">
-            {{$idea->content}}
-        </p>
+        @if ($editing ?? false)
+            <div class="row">
+                <form action="{{ route('idea.update',$idea->id) }}" method="post">
+                    @csrf
+                    @method('put')
+                    <div class="mb-3">
+                        <textarea name="content" class="form-control" id="content" rows="3">{{ $idea->content }}</textarea>
+                        @error('content')
+                            <span class="fs-6 text-danger mt-2">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="">
+                        <button type="submit" class="btn btn-dark"> Share </button>
+                    </div>
+                </form>
+            </div>
+
+        @else
+            <p class="fs-6 fw-light text-muted">
+                {{ $idea->content }}
+            </p>
+        @endif
         <div class="d-flex justify-content-between">
             <div>
                 <a href="#" class="fw-light nav-link fs-6"> <span class="fas fa-heart me-1">
-                    </span> {{$idea->likes}} </a>
+                    </span> {{ $idea->likes }} </a>
             </div>
             <div>
                 <span class="fs-6 fw-light text-muted"> <span class="fas fa-clock"> </span>
-                    {{$idea->created_at}} </span>
+                    {{ $idea->created_at }} </span>
             </div>
         </div>
         <div>

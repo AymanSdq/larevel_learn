@@ -17,15 +17,36 @@ class IdeaController extends Controller
 
     }
 
+    public function edit(Idea $id){
+
+        $editing = true;
+
+        return view('ideas.show', [
+            'idea' => $id,
+            'editing' => $editing
+        ]);
+    }
+
+    public function update(Idea $id){
+
+        request()->validate([
+            "content" => "required|min:5|max:512",
+        ]);
+
+        $id->content = request()->get('content', '');
+        $id->save();
+
+        return redirect()->route('idea.show', $id->id )->with('success', 'Idea updated succefully');
+    }
 
 
     public function store(){
 
         request()->validate([
-            "idea" => "required|min:5|max:235",
+            "content" => "required|min:5|max:512",
         ]);
 
-        $getIdea = request()->get('idea', '');
+        $getIdea = request()->get('content', '');
 
         $idea = Idea::create([
             'content' => $getIdea
