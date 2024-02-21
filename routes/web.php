@@ -20,9 +20,9 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 // Accesing the
 Route::get('/', [DashboardController::class , 'index'] )->name('idea.home');
 
-Route::get('/terms', function () {
-    return view('terms');
-});
+Route::get('/terms', function () {return view('terms');});
+
+Route::get('/ideas/{id}', [IdeaController::class, 'show'])->name('idea.show');
 
 Route::post('/ideas', [IdeaController::class, 'store'])->name('idea.add');
 
