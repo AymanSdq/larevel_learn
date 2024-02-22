@@ -11,6 +11,8 @@ class IdeaController extends Controller
 
     public function show(Idea $id){
 
+
+
         return view('ideas.show', [
             'idea' => $id
         ]);
@@ -39,7 +41,6 @@ class IdeaController extends Controller
         return redirect()->route('idea.show', $id->id )->with('success', 'Idea updated succefully');
     }
 
-
     public function store(){
 
         request()->validate([
@@ -54,7 +55,6 @@ class IdeaController extends Controller
 
         return redirect()->route('idea.home')->with('success', 'Idea posted succefully');
     }
-
 
     public function destroy(Idea $id){
 

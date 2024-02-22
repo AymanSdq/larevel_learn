@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\ProfileController;
@@ -31,4 +32,8 @@ Route::put('/ideas/{id}', [IdeaController::class, 'update'])->name('idea.update'
 Route::post('/ideas', [IdeaController::class, 'store'])->name('idea.add');
 
 Route::delete('/ideas/{id}', [IdeaController::class, 'destroy'])->name('idea.destroy');
+
+// For comments
+
+Route::post('/ideas/{idea}/comments', [CommentController::class, 'store'])->name('ideas.comment.store');
 
